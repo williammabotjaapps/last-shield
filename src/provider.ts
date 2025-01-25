@@ -2,11 +2,36 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useStore } from './store'; 
 import jwt from 'jsonwebtoken';
 
-const AuthContext = createContext({ isAuthenticated: false });
+interface AccessRoutes {
+  [role: string]: string[];
+}
 
-export const LastProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface RouteConfig {
+  publicRoutes: string[];
+  privateRoutes: string[];
+  hybridRoutes: string[];
+  loginRoute: string;
+  registerRoute: string;
+  forgotRoute: string;
+  otpRoute: string;
+  accessRoutes: AccessRoutes;
+}
+
+interface AuthContextType {
+  isAuthenticated: boolean;
+  config: RouteConfig;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+interface LastProviderProps {
+  children: React.ReactNode;
+  config: RouteConfig; 
+}
+
+export const LastProvider: React.FC<LastProviderProps> = ({ children, config }) => {
   const { setToken, token } = useStore();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
     const cookieToken = document.cookie.split('; ').find(row => row.startsWith('token='));
@@ -19,10 +44,16 @@ export const LastProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [setToken]);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated }}>
+    <AuthContext.Provider value={{ isAuthenticated, config }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within a LastProvider');
+  }
+  return context;
+};

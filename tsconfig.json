@@ -5,7 +5,13 @@
       "strict": true,                           
       "esModuleInterop": true,                  
       "skipLibCheck": true,                     
-      "forceConsistentCasingInFileNames": true 
+      "forceConsistentCasingInFileNames": true,
+      "baseUrl": "./",                          
+      "paths": {
+        "store": ["src/store"],                 
+        "components/*": ["src/components/*"],   
+        "utils/*": ["src/utils/*"]              
+      }
     },
     "include": ["src/**/*"],                    
     "exclude": ["node_modules", "**/*.spec.ts"] 
