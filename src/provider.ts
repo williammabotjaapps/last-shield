@@ -25,7 +25,7 @@ export const LastProvider: React.FC<LastProviderProps> = ({ children, config }) 
   useEffect(() => {
     const cookieToken = cookies['access'];
     if (cookieToken) {
-      const localToken = jwt.sign({ data: cookieToken }, process.env.NEXT_PUBLIC_LAST_SECRET_KEY, { expiresIn: '1h' });
+      const localToken = jwt.sign({ data: cookieToken }, String(process?.env?.NEXT_PUBLIC_LAST_SECRET_KEY), { expiresIn: '1h' });
       setToken(localToken);
       setIsAuthenticated(true);
     }

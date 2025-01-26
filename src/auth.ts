@@ -1,13 +1,27 @@
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
-const SECRET_KEY = 'your-secret-key'; 
+interface LastUserData {
+  account_no?: string | null;
+  user_role?: string | null;
+}
+
+const SECRET_KEY = String(process?.env?.NEXT_PUBLIC_LAST_SECRET_KEY);
+
+
 
 export const verifyToken = (token: string) => {
   try {
-    const decoded = jwt.verify(token, SECRET_KEY);
-    return { valid: true, decoded };
-  } catch (error) {
-    return { valid: false, error: error.message };
+    
+    const decoded = jwt.verify(token, SECRET_KEY) as JwtPayload;
+
+    const userData: LastUserData = {
+      account_no: decoded.account_no || null,
+      user_role: decoded.user_role || null,
+    };
+
+    return { valid: true, decoded: userData };
+  } catch (error: any) {
+    return { valid: false, error: error?.message };
   }
 };
 
@@ -15,14 +29,14 @@ export const hasRole = (decodedToken: any, requiredRole: string) => {
   return decodedToken && decodedToken.role === requiredRole;
 };
 
-export const generateToken = (userData: any) => {
+export const generateToken = (userData: LastUserData) => {
   return jwt.sign(userData, SECRET_KEY, { expiresIn: '1h' });
 };
 
 export const refreshToken = (oldToken: string) => {
   const { valid, decoded } = verifyToken(oldToken);
   if (valid) {
-    return generateToken({ id: decoded?.account_no, role: decoded?.user_role });
+    return generateToken({ account_no: decoded?.account_no, user_role: decoded?.user_role });
   }
   return null;
 };
