@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 
-export function authMiddleware(req) {
+export function authMiddleware(req: { cookies: { token: any; }; user: string | jwt.JwtPayload; }) {
   const token = req.cookies.token;
 
   if (!token) {

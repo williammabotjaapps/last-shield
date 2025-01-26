@@ -22,7 +22,7 @@ export const generateToken = (userData: any) => {
 export const refreshToken = (oldToken: string) => {
   const { valid, decoded } = verifyToken(oldToken);
   if (valid) {
-    return generateToken({ id: decoded.id, role: decoded.role });
+    return generateToken({ id: decoded?.account_no, role: decoded?.user_role });
   }
   return null;
 };
