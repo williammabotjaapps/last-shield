@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { AuthProvider, useAuth } from '../provider';
+import { LastProvider, useAuth } from '../src/provider';
 
 const TestComponent = () => {
   const { user, login, logout } = useAuth();

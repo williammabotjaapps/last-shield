@@ -1,18 +1,15 @@
-interface RouteConfig {
+interface AccessRoutes {
+    [role: string]: string[];
+}
+
+export interface RouteConfig {
     publicRoutes: string[];
     privateRoutes: string[];
     hybridRoutes: string[];
     loginRoute: string;
-    accessRoutes: { [role: string]: string[] };
-  }
-  
-  export const config: RouteConfig = {
-    publicRoutes: ['/login', '/signup'],
-    privateRoutes: ['/dashboard', '/profile'],
-    hybridRoutes: ['/home'],
-    loginRoute: '/login',
-    accessRoutes: {
-      admin: ['/admin', '/settings'],
-      user: ['/user', '/profile'],
-    },
-  };
+    registerRoute: string;
+    forgotRoute: string;
+    otpRoute: string;
+    accessRoutes: AccessRoutes;
+    isAuthenticated: boolean;
+}
