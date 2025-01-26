@@ -2,12 +2,13 @@
     "name": "last-shield",
     "version": "1.0.0",
     "description": "Last-Shield is a powerful and flexible security library designed to enhance the protection of your web applications.",
-    "main": "index.js",
+    "main": "dist/index.js",
     "scripts": {
+        "build": "tsc",
         "dev": "next dev",
-        "build": "next build",
         "start": "next start",
-        "lint": "eslint ."
+        "lint": "eslint .",
+        "prepublish": "npm run build"
     },
     "keywords": [
         "nextjs",
@@ -17,14 +18,12 @@
     ],
     "author": "William Mabotja",
     "license": "MIT",
-    "dependencies": {
+    "devDependencies": {
         "jsonwebtoken": "^9.0.2",
         "next": "^15.0.0",
         "react": "^18.0.0",
         "react-dom": "^18.0.0",
-        "zustand": "^5.0.3"
-    },
-    "devDependencies": {
+        "zustand": "^5.0.3",
         "@types/jsonwebtoken": "^9.0.8",
         "@types/react": "^19.0.8",
         "@types/react-dom": "^19.0.3",
