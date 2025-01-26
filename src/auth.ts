@@ -1,4 +1,5 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { useLastTokenStore } from 'store';
 import { useStore } from 'zustand'; 
 
 interface LastUserData {
@@ -40,6 +41,6 @@ export const refreshToken = (oldToken: string) => {
 };
 
 export const storeToken = (token: string | null) => {
-  const setLastToken = useStore.getState().setToken; 
+  const { setLastToken } = useStore(useLastTokenStore);
   setLastToken(token);
 };
