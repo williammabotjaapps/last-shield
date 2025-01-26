@@ -20,18 +20,23 @@
     "author": "William Mabotja",
     "license": "MIT",
     "devDependencies": {
+        "@types/jest": "^29.5.14",
+        "@types/jsonwebtoken": "^9.0.8",
+        "@types/mocha": "10.0.10",
+        "@types/react": "^19.0.8",
+        "@types/react-dom": "^19.0.3",
+        "eslint": "^8.0.0",
+        "eslint-config-next": "^15.0.0",
         "jsonwebtoken": "^9.0.2",
         "next": "^15.0.0",
         "react": "^18.0.0",
         "react-dom": "^18.0.0",
-        "zustand": "^5.0.3",
-        "@types/jsonwebtoken": "^9.0.8",
-        "@types/react": "^19.0.8",
-        "@types/react-dom": "^19.0.3",
-        "eslint": "^8.0.0",
-        "eslint-config-next": "^15.0.0"
-    }, 
+        "zustand": "^5.0.3"
+    },
     "files": [
         "dist/**/*"
-    ]
+    ],
+    "dependencies": {
+        "react-cookie": "^7.2.2"
+    }
 }
