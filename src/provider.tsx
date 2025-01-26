@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useStore } from './store'; 
+import { useLastTokenStore } from './store'; 
 import jwt from 'jsonwebtoken';
 import { RouteConfig } from './config'; 
 import { useCookies } from 'react-cookie';
@@ -7,7 +7,6 @@ import { useCookies } from 'react-cookie';
 interface LastContextType {
   isAuthenticated: boolean | null; 
   config: RouteConfig | null; 
-  children: React.ReactNode; 
 }
 
 const LastContext = createContext<LastContextType | undefined>(undefined);
@@ -18,25 +17,26 @@ interface LastProviderProps {
 }
 
 export const LastProvider: React.FC<LastProviderProps> = ({ children, config }) => {
-  const { setToken } = useStore();
-  const [isAuthenticated, setIsAuthenticated] = useState(false); 
-  const [cookies, setCookie] = useCookies(['last_local_token', 'access']); 
+  const { setLastToken } = useLastTokenStore(); 
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null); 
+  const [cookies] = useCookies(['access']); 
 
   useEffect(() => {
     const cookieToken = cookies['access'];
     if (cookieToken) {
       const localToken = jwt.sign({ data: cookieToken }, String(process?.env?.NEXT_PUBLIC_LAST_SECRET_KEY), { expiresIn: '1h' });
-      setToken(localToken);
+      setLastToken(localToken); 
       setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false); 
     }
-  }, [cookies]);
+  }, [cookies, setLastToken]);
 
   const updatedConfig = { ...config, isAuthenticated };
 
   const contextValue = {
     isAuthenticated,
     config: updatedConfig,
-    children 
   };
 
   return (

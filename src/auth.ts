@@ -1,4 +1,5 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { useStore } from 'zustand'; 
 
 interface LastUserData {
   account_no?: string | null;
@@ -7,11 +8,8 @@ interface LastUserData {
 
 const SECRET_KEY = String(process?.env?.NEXT_PUBLIC_LAST_SECRET_KEY);
 
-
-
 export const verifyToken = (token: string) => {
   try {
-    
     const decoded = jwt.verify(token, SECRET_KEY) as JwtPayload;
 
     const userData: LastUserData = {
@@ -26,7 +24,7 @@ export const verifyToken = (token: string) => {
 };
 
 export const hasRole = (decodedToken: any, requiredRole: string) => {
-  return decodedToken && decodedToken.role === requiredRole;
+  return decodedToken && decodedToken.user_role === requiredRole; 
 };
 
 export const generateToken = (userData: LastUserData) => {
@@ -39,4 +37,9 @@ export const refreshToken = (oldToken: string) => {
     return generateToken({ account_no: decoded?.account_no, user_role: decoded?.user_role });
   }
   return null;
+};
+
+export const storeToken = (token: string | null) => {
+  const setLastToken = useStore.getState().setToken; 
+  setLastToken(token);
 };
