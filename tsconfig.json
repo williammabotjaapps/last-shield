@@ -9,11 +9,6 @@
       "jsx": "preserve",
       "baseUrl": "./", 
       "typeRoots": ["./node_modules/@types", "./@types"],                         
-      "paths": {
-        "store": ["src/store"],                 
-        "components/*": ["src/components/*"],   
-        "utils/*": ["src/utils/*"]              
-      },
       "outDir": "./dist",
     },
     "include": ["src/**/*"],                    

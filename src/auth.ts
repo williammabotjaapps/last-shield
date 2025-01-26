@@ -1,5 +1,5 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { useLastTokenStore } from 'store';
+import { useLastTokenStore } from './store';
 import { useStore } from 'zustand'; 
 
 interface LastUserData {
