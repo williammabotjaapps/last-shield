@@ -1,6 +1,6 @@
 {
     "name": "last-shield",
-    "version": "0.0.16",
+    "version": "0.0.17",
     "description": "Last-Shield is a powerful and flexible security library designed to enhance the protection of your web applications.",
     "main": "dist/index.js",
     "types": "types/last-shield.d.ts",
