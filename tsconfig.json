@@ -6,7 +6,8 @@
       "esModuleInterop": true,                  
       "skipLibCheck": true,                     
       "forceConsistentCasingInFileNames": true,
-      "baseUrl": "./",                          
+      "baseUrl": "./", 
+      "typeRoots": ["./node_modules/@types", "./@types"],                         
       "paths": {
         "store": ["src/store"],                 
         "components/*": ["src/components/*"],   
