@@ -1,15 +1,15 @@
 interface AccessRoutes {
-    [role: string]: string[];
+    [role: string]: string[] | null;
 }
 
 export interface RouteConfig {
-    publicRoutes: string[];
-    privateRoutes: string[];
-    hybridRoutes: string[];
-    loginRoute: string;
-    registerRoute: string;
-    forgotRoute: string;
-    otpRoute: string;
-    accessRoutes: AccessRoutes;
-    isAuthenticated: boolean;
+    publicRoutes?: string[] | null;
+    privateRoutes?: string[] | null; 
+    hybridRoutes: string[] | null;
+    loginRoute: string | null; 
+    registerRoute: string | null; 
+    forgotRoute: string | null;
+    otpRoute: string | null;
+    accessRoutes: AccessRoutes | null; 
+    isAuthenticated: boolean | null; 
 }
