@@ -40,7 +40,7 @@ export const LastProvider: React.FC<LastProviderProps> = ({ children, config }) 
   };
 
   return (
-    <LastContext.Provider value={contextValue}>
+    <LastContext.Provider value={contextValue as LastContextType}>
       {children} 
     </LastContext.Provider>
   );

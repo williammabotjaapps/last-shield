@@ -1,4 +1,4 @@
-import { verifyToken, hasRole, generateToken, refreshToken } from '../auth';
+import { verifyToken, hasRole, generateToken, refreshToken } from '../src/auth';
 import jwt from 'jsonwebtoken';
 
 const SECRET_KEY = 'your-secret-key'; 
@@ -36,7 +36,7 @@ describe('Authentication Utilities', () => {
   });
 
   test('generateToken should create a valid token', () => {
-    const userData = { id: 1, role: 'admin' };
+    const userData = { account_no: '1', user_role: 'admin' };
     const token = generateToken(userData);
     const decoded = jwt.verify(token, SECRET_KEY);
     expect(decoded).toHaveProperty('id', 1);
@@ -46,7 +46,7 @@ describe('Authentication Utilities', () => {
   test('refreshToken should return a new token for a valid old token', () => {
     const newToken = refreshToken(validToken);
     expect(newToken).toBeDefined();
-    const decoded = jwt.verify(newToken, SECRET_KEY);
+    const decoded = jwt.verify(String(newToken), SECRET_KEY);
     expect(decoded).toHaveProperty('id', 1);
     expect(decoded).toHaveProperty('role', 'admin');
   });

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { authMiddleware } from '../middleware';
+import { authMiddleware } from '../src/middleware';
+import jwt from 'jsonwebtoken';
 
 describe('Auth Middleware', () => {
   const mockRequest = (token: string | null) => ({
